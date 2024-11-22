@@ -4,7 +4,7 @@ import multer from "multer"; // Biblioteca para manipulação de upload de arqui
 import cors from "cors";
 
 const corsOptions = {
-    origin: "http://localhost8000", 
+    origin: "http://localhost:8000", 
     optionsSucessStatus: 200
 };
 
