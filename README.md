@@ -50,8 +50,8 @@ Este repositório contém o projeto desenvolvido durante a **Imersão Dev Back-E
 ### **Passo a Passo**
 1. Clone este repositório:
    ```bash
-   git clone https://github.com/seu-usuario/imersao-Backend.git
-   cd imersao-Backend
+   git clone https://github.com/seu-usuario/UploadImersaoBackend.git
+   cd UploadImersaoBackend
    ```
 
 2. Instale as dependências:
