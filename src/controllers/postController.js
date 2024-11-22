@@ -1,6 +1,7 @@
 // Importa funções para interação com o modelo de dados (postModel) e o módulo de sistema de arquivos (fs)
-import { getTodosPosts, criarPubli } from "../models/postModel.js";
+import { getTodosPosts, criarPubli, atualizarPost } from "../models/postModel.js";
 import fs from "fs";
+import gerarDescricaoComGemini from "../services/geminiService.js";
 
 // Função para listar todos os posts
 export async function listarPosts(req, res) {
@@ -42,6 +43,25 @@ export async function uploadImagem(req, res) {
         res.status(200).json(publiCriada); 
     } catch (erro) {
         // Registra o erro no console e retorna uma mensagem de erro com status 500 (erro do servidor)
+        console.log(erro.message); 
+        res.status(500).json({ "Erro": "Falha na requisição" }); 
+    }
+}
+
+export async function atualizarNovoPost(req, res) {
+    const id = req.params.id; 
+    const urlImagem = `http://localhost:3000/${id}.png`;
+    try {
+        const imgBuffer = fs.readFileSync(`uploads/${id}.png`);
+        const descricao = await gerarDescricaoComGemini(imgBuffer);
+        const postAtualizado = {
+            imgUrl: urlImagem,
+            descricao: descricao,
+            alt: req.body.alt
+        };
+        const postAtua = await atualizarPost(id, postAtualizado); 
+        res.status(200).json(postAtua); 
+    } catch (erro) {
         console.log(erro.message); 
         res.status(500).json({ "Erro": "Falha na requisição" }); 
     }
